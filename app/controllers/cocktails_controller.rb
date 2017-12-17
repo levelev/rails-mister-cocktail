@@ -1,7 +1,7 @@
 class CocktailsController < ApplicationController
   # GET /cocktails
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.order('lower(name)').all
   end
 
   # GET /cocktails/1
@@ -23,6 +23,12 @@ class CocktailsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @cocktail = Cocktail.find(params[:id])
+    @cocktail.destroy
+    redirect_to root_path
   end
 
   private
